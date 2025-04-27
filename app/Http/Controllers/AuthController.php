@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -11,54 +13,62 @@ class AuthController extends Controller
      */
     public function index()
     {
-        return view('login');
+        $user = Auth::user();
+        if($user === null)
+            return view('login');
+        else
+            return redirect()->intended('dashboard');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    // Create a new user authentication
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    // Store new user authentication
+    public function store(Request $request): RedirectResponse
     {
-        //
+        $credential = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required']
+        ]);
+
+        if(Auth::attempt($credential)){
+            $request->session()->regenerate();
+
+            return redirect()->intended('dashboard');
+        }
+
+        return back()->withErrors([
+            'email' => 'The provided credential not match in our records'
+        ])->onlyInput('email');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
+    // // Show authenticated user
+    // public function show(string $id)
+    // {
+    //     //
+    // }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
+    // public function edit(string $id)
+    // {
+    //     //
+    // }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+
+    // public function update(Request $request, string $id)
+    // {
+    //     //
+    // }
+
+    // Sign out authenticated user
+    public function destroy(Request $request): RedirectResponse
     {
-        //
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('/');
     }
 }

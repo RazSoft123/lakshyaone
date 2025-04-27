@@ -9,9 +9,13 @@ Route::get('/', function () {
     return view('index');
 });
 
+// Route::get('/login', function() {
+//     return view('login');
+// })->name('login');
+
 Route::get('/dashboard', function() {
     return view('dashboard');
-});
+})->middleware('auth')->name('dashboard');
 
 
 /*
@@ -21,5 +25,14 @@ Route::get('/login', function() {
 
 */
 
-Route::resource('login', AuthController::class)->only(['index', 'store']);
+// Route::resource('/login', AuthController::class)->only(['index', 'store'])->name(['login.index','login.store'],'login');
 Route::resource('signup', Signup::class)->only(['index', 'store']);
+
+
+// Auth routes for the pages
+Route::get('/login', [AuthController::class, 'index'])->name('login');
+// Route::get('/login', [AuthController::class, 'index'])->name('login.index');
+Route::post('/login', [AuthController::class, 'store'])->name('login.store');
+
+// Logout route
+Route::get('/logout', [AuthController::class, 'destroy'])->name('logout');

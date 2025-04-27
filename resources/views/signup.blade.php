@@ -6,7 +6,7 @@
 
                 <div class="flex flex-row h-16">
                     <div class="w-full flex items-center justify-center bg-red-50">
-                        <span class="text-blue-900 text-2xl font-bold">Login</span>
+                        <span class="text-blue-900 text-2xl font-bold"><a href="{{ route('login') }}">Login</a></span>
                     </div>
                     <div class="w-full flex items-center justify-center border-red-300 shadow-red-400 shadow-xs">
                         <span class="text-blue-900 text-2xl font-bold bg-red" >Signup</span>

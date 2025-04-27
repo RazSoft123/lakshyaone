@@ -9,7 +9,8 @@
                         <span class="text-blue-900 text-2xl font-bold">Login</span>
                     </div>
                     <div class="w-full flex items-center justify-center bg-red-50">
-                        <span class="text-blue-900 text-2xl font-bold bg-red" >Signup</span>
+
+                        <span class="text-blue-900 text-2xl font-bold bg-red" ><a href="{{ route('signup.index') }}">Signup</a></span>
                     </div>
                 </div>
                 <form action="{{ route('login.store') }}" method="POST">
