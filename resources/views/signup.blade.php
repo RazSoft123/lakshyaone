@@ -12,7 +12,7 @@
                         <span class="text-blue-900 text-2xl font-bold bg-red" >Signup</span>
                     </div>
                 </div>
-                <form action="{{ route('login.store') }}" method="POST">
+                <form action="{{ route('user.store') }}" method="POST">
                     @csrf
                     <div class="flex flex-col items-center space-x-3 space-y-6  my-16 px-16">
                         <x-input-box title="name" placeholder="Enter your full name"/>

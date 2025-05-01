@@ -13,7 +13,7 @@
         <!-- Styles / Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="overflow-hidden">
+    <body class="overflow-hidden w-full h-screen">
         {{ $slot }}
     </body>
 </html>
